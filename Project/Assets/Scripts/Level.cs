@@ -49,7 +49,8 @@ public class Level : MonoBehaviour
 		for(int y = 0; y < levelHeight; y++)
 		{
 			string line = lines[y];
-			
+			if(line.Length == 0) continue;
+			Debug.Log(line.Length);
 			for(int x = 0; x < levelWidth; x++) 
 			{
 				if(line.Length > 1 && x < line.Length)
