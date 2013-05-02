@@ -2,6 +2,14 @@ Temp/*
 Library/*
 ProjectSettings/*
 
+Project/Temp/*
+Project/Library/*
+Project/ProjectSettings/*
+
 Temp\*
 Library\*
 ProjectSettings\*
+
+Project\Temp\*
+Project\Library\*
+Project\ProjectSettings\*
