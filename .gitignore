@@ -22,3 +22,4 @@ Project\ProjectSettings\*
 *.csproj
 *.unityproj
 *.sln
+Project/Library/*
