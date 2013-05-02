@@ -37,7 +37,7 @@ public class Level : MonoBehaviour
 	    StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar+"Levels" + Path.DirectorySeparatorChar + name);
 	    string fileContents = sr.ReadToEnd();
 	    sr.Close();
-	 	Debug.Log(fileContents);
+	 	
 		//Parse file
 	    string[] lines = fileContents.Split("\n"[0]);
 		levelHeight = lines.Length;
@@ -50,7 +50,7 @@ public class Level : MonoBehaviour
 		{
 			string line = lines[y];
 			if(line.Length == 0) continue;
-			Debug.Log(line.Length);
+		
 			for(int x = 0; x < levelWidth; x++) 
 			{
 				if(line.Length > 1 && x < line.Length)
