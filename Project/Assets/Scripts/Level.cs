@@ -34,10 +34,10 @@ public class Level : MonoBehaviour
 	void LoadLevel(string name)
 	{
 		//Read file
-	    StreamReader sr = new StreamReader(Application.dataPath + "/Levels/" + name);
+	    StreamReader sr = new StreamReader(Application.dataPath + Path.DirectorySeparatorChar+"Levels" + Path.DirectorySeparatorChar + name);
 	    string fileContents = sr.ReadToEnd();
 	    sr.Close();
-	 
+	 	Debug.Log(fileContents);
 		//Parse file
 	    string[] lines = fileContents.Split("\n"[0]);
 		levelHeight = lines.Length;
@@ -52,7 +52,10 @@ public class Level : MonoBehaviour
 			
 			for(int x = 0; x < levelWidth; x++) 
 			{
-				levelData[x,y] = line.Substring(x, 1);
+				if(line.Length > 1 && x < line.Length)
+				{
+					levelData[x,y] = line.Substring(x, 1);
+				}
 			}
 	    }
 	}
