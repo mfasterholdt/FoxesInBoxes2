@@ -120,19 +120,12 @@ public class Level : MonoBehaviour
 		HandleMouse();
 	}
 	
-	public bool GetTile(int x, int y)
+	public Tile GetTile(int x, int y)
 	{
 		//Check to fall
 		Tile t = tiles[x, y];
 		
-		if(t == null)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return t;
 	}
 	
 	void HandleMouse()

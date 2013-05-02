@@ -3,40 +3,33 @@ using System.Collections;
 
 public class Box : Tile 
 {
+	public float bounce = -0.25f;
+	
 	Vector3 velocity;
 	Vector3 acceleration;
-	
-	delegate void State();
-	State state;
-	
-	public float bounce = -0.25f;
 	
 	void Start () 
 	{
 		
 	}
 	
-	public void TileUpdate () 
+	override public void IdleState()
 	{
-		if(state != null)
+		//Ground check		
+		Tile t = level.GetTile(pos.x, pos.y + 1);
+			
+		if(t == null)
 		{
-			state();
+			StartFall();
 		}
-		else 
+		else if(t.type == Type.fox)
 		{
-			if(!level.GetTile(pos.x, pos.y + 1))
-			{
-				StartFall();
-			}
+			//***Fox check
+			StartFall();
 		}
 	}
 	
-	void DraggingState()
-	{
-		
-	}
-	
-	void FallState()
+	override public void FallState()
 	{
 		Vector3 p = this.transform.position;
 		velocity.y += Level.gravity * Time.deltaTime;  
@@ -48,7 +41,9 @@ public class Box : Tile
 		}
 		else
 		{
-			if(level.GetTile(pos.x, pos.y + 1))
+			Tile t = level.GetTile(pos.x, pos.y + 1);
+			
+			if(t != null && t.type != Tile.Type.fox)
 			{
 				this.transform.position = moveTarget;
 				
@@ -56,15 +51,14 @@ public class Box : Tile
 			}
 			else
 			{
-				StartFall();
+				state = new State(IdleState);
 			}
 		}
 	}
 	
-	void StartFall()
+	void DraggingState()
 	{
-		MoveTile(0, 1);		
-		state = new State(FallState);
+		
 	}
 	
 	override public void Drag()
@@ -84,6 +78,6 @@ public class Box : Tile
 		
 		level.tiles[pos.x, pos.y] = this;				
 				
-		state = null;
+		state = new State(IdleState);
 	}
 }

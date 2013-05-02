@@ -14,6 +14,9 @@ public class Tile : MonoBehaviour {
 	public GridPos pos;
 	public Vector3 moveTarget;
 	
+	public delegate void State();
+	public State state;
+
 	public void Setup(Vector3 p, int x, int y, Level level)
 	{
 		pos = new GridPos(x, y);		
@@ -21,7 +24,26 @@ public class Tile : MonoBehaviour {
 		
 		p.z = depth;
 		this.transform.position = p;
+		
+		state = new State(IdleState);
 	}
+	
+	public void TileUpdate () 
+	{
+		if(state != null)
+		{
+			state();
+		}
+	}
+	
+	virtual public void IdleState() {	}
+
+	virtual public void FallState() {	}
+	
+	virtual public void Drop(GridPos drop) {	}
+	
+	virtual public void Drag() {	}
+	
 	
 	public void MoveTile(int xOffset, int yOffset)
 	{
@@ -39,14 +61,11 @@ public class Tile : MonoBehaviour {
 		moveTarget.y = Mathf.Round(moveTarget.y);
 		
 		level.tiles[pos.x, pos.y] = this;
-		
 	}
 	
-	virtual public void Drop(GridPos drop)
+	public void StartFall()
 	{
-	}
-	
-	virtual public void Drag()
-	{
+		MoveTile(0, 1);		
+		state = new State(FallState);
 	}
 }
