@@ -7,7 +7,8 @@ public class Level : MonoBehaviour
 {	
 	public GameObject[] tileList;
 	public string fileName = "level01.txt";
-
+	public Tile border;
+	
 	public Tile[,] tiles;
 	Fox[] foxes;
 	Box[] boxes;
@@ -122,10 +123,12 @@ public class Level : MonoBehaviour
 	
 	public Tile GetTile(int x, int y)
 	{
-		//Check to fall
-		Tile t = tiles[x, y];
+		if(x < 0 || x >= levelWidth || y < 0 || y >= levelHeight)
+		{
+			return border;
+		}
 		
-		return t;
+		return tiles[x, y];
 	}
 	
 	void HandleMouse()

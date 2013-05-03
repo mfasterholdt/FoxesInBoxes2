@@ -56,10 +56,7 @@ public class Box : Tile
 		}
 	}
 	
-	void DraggingState()
-	{
-		
-	}
+	
 	
 	override public void Drag()
 	{

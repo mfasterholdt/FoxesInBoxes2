@@ -36,6 +36,8 @@ public class Tile : MonoBehaviour {
 		}
 	}
 	
+	virtual public void DraggingState() {	}
+	
 	virtual public void IdleState() {	}
 
 	virtual public void FallState() {	}
