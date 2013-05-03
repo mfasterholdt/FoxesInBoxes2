@@ -22,8 +22,9 @@ public class Level : MonoBehaviour
 	
 	public static int tileSize = 1;
 	public static float gravity = -0.1f;
+	public static float minVelocity = 0.0001f;
 	
-	public Tile dragging;
+	public DynamicTile dragging;
 	public GridPos lastDragPos;
 	
 	void Start ()
@@ -112,9 +113,17 @@ public class Level : MonoBehaviour
 	
 	void Update()
 	{
+		//Box updates
 		for(int i = 0; i < boxes.Length; i++)
 		{
 			Box b = boxes[i];
+			b.TileUpdate();
+		}
+		
+		//Fox updates
+		for(int t = 0; t < foxes.Length; t++)
+		{
+			Fox b = foxes[t];
 			b.TileUpdate();
 		}
 		
@@ -174,7 +183,7 @@ public class Level : MonoBehaviour
 				
 				if (Physics.Raycast (ray, out hit))
 				{  
-					Tile tile = hit.collider.transform.parent.GetComponent<Tile>();
+					DynamicTile tile = hit.collider.transform.parent.GetComponent<DynamicTile>();
 					
 					if (tile) tile.Drag();
 				}

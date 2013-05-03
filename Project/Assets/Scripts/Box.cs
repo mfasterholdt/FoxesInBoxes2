@@ -1,17 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class Box : Tile 
+public class Box : DynamicTile 
 {
-	public float bounce = -0.25f;
-	
-	Vector3 velocity;
-	Vector3 acceleration;
-	
-	void Start () 
-	{
-		
-	}
 	
 	override public void IdleState()
 	{
@@ -51,30 +42,8 @@ public class Box : Tile
 			}
 			else
 			{
-				state = new State(IdleState);
+				SetIdleState();
 			}
 		}
-	}
-	
-	
-	
-	override public void Drag()
-	{
-		level.dragging = this;
-		level.tiles[pos.x, pos.y] = null;						
-		
-		state = new State(DraggingState);
-	}
-	
-	override public void Drop(GridPos drop)
-	{
-		pos = drop;
-		
-		velocity = Vector3.zero;
-		level.dragging = null;
-		
-		level.tiles[pos.x, pos.y] = this;				
-				
-		state = new State(IdleState);
 	}
 }
